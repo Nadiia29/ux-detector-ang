@@ -1,0 +1,7 @@
+<div class="card" [ngClass]="data.status">
+  <span *ngIf="data.status === 'good'">✅</span>
+  <span *ngIf="data.status === 'warning'">⚠️</span>
+  <span *ngIf="data.status === 'bad'">❌</span>
+
+  {{ data.text }}
+</div>

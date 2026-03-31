@@ -1,0 +1,92 @@
+<div class="result-container">
+  <div class="language-switcher-result">
+    <button [class.active]="langService.isUkrainian()" (click)="langService.switchLanguage('uk')">
+      🇺🇦 UA
+    </button>
+    <button [class.active]="langService.isEnglish()" (click)="langService.switchLanguage('en')">
+      🇬🇧 EN
+    </button>
+  </div>
+
+  <div *ngIf="loading" class="loading-screen">
+    <div class="spinner"></div>
+    <h3>{{ translate('analysis.loading') }}</h3>
+    <p>{{ translate('analysis.checking') }}</p>
+  </div>
+
+  <div *ngIf="error" class="error-screen">
+    <div class="error-icon">⚠️</div>
+    <h2>{{ error }}</h2>
+    <button (click)="goBack()">{{ translate('button.try') }}</button>
+  </div>
+
+  <div *ngIf="analysis && !loading" id="report-content">
+    <div class="score-header" [style.borderBottomColor]="getScoreColor(analysis.score)">
+      <div class="score-circle" [style.background]="getScoreColor(analysis.score)">
+        <span class="score-number">{{ analysis.score }}</span>
+        <span class="score-max">/100</span>
+      </div>
+      <div class="score-info">
+        <h1>{{ getScoreText(analysis.score) }}</h1>
+        <p>
+          {{ translate('analysis.site') }}
+          <a [href]="analysis.url" target="_blank" class="url">
+            {{ analysis.url }}
+          </a>
+        </p>
+        <p>{{ translate('analysis.date') }} {{ analysis.timestamp | date: 'dd.MM.yyyy HH:mm' }}</p>
+      </div>
+    </div>
+
+    <div class="metrics-grid">
+      <div
+        *ngFor="let metric of ['performance', 'seo', 'accessibility', 'ux']"
+        class="metric-card card"
+      >
+        <div class="metric-header">
+          <span class="metric-icon">{{ getMetricIcon(metric) }}</span>
+          <span class="metric-name">{{ getMetricDescription(metric) }}</span>
+        </div>
+        <div class="metric-value">{{ getMetricValue(metric) }}%</div>
+        <div class="progress-bar">
+          <div class="progress-fill" [style.width.%]="getMetricValue(metric)"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="issues-section card" *ngIf="analysis.issues.length">
+      <h2>{{ translate('issues.title') }}</h2>
+      <div class="issues-list">
+        <div
+          *ngFor="let issue of analysis.issues"
+          class="issue-item"
+          [class.error]="issue.type === 'error'"
+          [class.warning]="issue.type === 'warning'"
+          [class.info]="issue.type === 'info'"
+        >
+          {{ getIssueMessage(issue) }}
+        </div>
+      </div>
+    </div>
+
+    <div class="recommendations-section card" *ngIf="analysis.recommendations.length">
+      <h2>{{ translate('recommendations.title') }}</h2>
+      <div class="recommendations-list">
+        <div *ngFor="let rec of analysis.recommendations" class="recommendation-item">
+          {{ getRecommendationText(rec) }}
+        </div>
+      </div>
+    </div>
+
+    <div class="action-buttons">
+      <button class="btn-primary" (click)="exportToPDF()">{{ translate('button.export') }}</button>
+      <button class="btn-secondary" (click)="shareOnLinkedIn()">
+        {{ translate('button.share') }}
+      </button>
+      <button class="btn-secondary" (click)="reanalyze()">
+        {{ translate('button.reanalyze') }}
+      </button>
+      <button class="btn-secondary" (click)="goBack()">{{ translate('button.new') }}</button>
+    </div>
+  </div>
+</div>

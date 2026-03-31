@@ -1,0 +1,44 @@
+<div class="language-switcher">
+  <button [class.active]="langService.isUkrainian()" (click)="switchLanguage('uk')">🇺🇦 UA</button>
+  <button [class.active]="langService.isEnglish()" (click)="switchLanguage('en')">🇬🇧 EN</button>
+</div>
+
+<div class="container">
+  <h1>{{ translate('app.title') }}</h1>
+  <p class="subtitle">{{ translate('app.subtitle') }}</p>
+
+  <div class="history-section" *ngIf="history.length">
+    <div class="history-header">
+      <h3>{{ translate('history.title') }}</h3>
+      <button class="clear-history" (click)="clearHistory()">
+        {{ translate('history.clear') }}
+      </button>
+    </div>
+
+    <div class="history-grid">
+      <div *ngFor="let item of history" class="history-card card" (click)="reanalyze(item.url)">
+        <div class="card-top">
+          <span class="url" [title]="item.url">
+            {{ item.url }}
+          </span>
+        </div>
+
+        <div class="card-bottom">
+          <div class="score" [style.color]="getScoreColor(item.score)">
+            {{ item.score }}
+          </div>
+
+          <div class="date">
+            {{ item.timestamp | date: 'short' }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="empty-history" *ngIf="!history.length">
+    <p class="empty-message">{{ translate('history.empty') }}</p>
+  </div>
+
+  <app-input-form></app-input-form>
+</div>

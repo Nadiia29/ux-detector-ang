@@ -1,0 +1,10 @@
+<div>
+  <input
+    [(ngModel)]="url"
+    [placeholder]="translate('form.placeholder')"
+    (keyup.enter)="analyze()"
+  />
+  <button (click)="analyze()">{{ translate('form.button') }}</button>
+
+  <div *ngIf="error" class="error-message">⚠️ {{ error }}</div>
+</div>
