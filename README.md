@@ -205,9 +205,9 @@ Telegram бот для звітів
 📞 **Контакти**
 Автор: Nadiia Poshtova
 
-💼 LinkedIn: [linkedin.com/in/your-profile](https://www.linkedin.com/in/nadiia-poshtova-73b59224b/)
+💼 LinkedIn: https://www.linkedin.com/in/nadiia-poshtova-73b59224b/
 
-🐙 GitHub: [github.com/your-username](https://github.com/Nadiia29)
+🐙 GitHub: https://github.com/Nadiia29
 
 📧 Email: nadiia.poshtova@gmail.com
 
