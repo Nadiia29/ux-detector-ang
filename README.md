@@ -171,10 +171,23 @@ SEO-фактори
 📸 **Скріншоти**
 🖼️ Скріншоти будуть додані завтра
 
-Головна сторінка Сторінка результатів
-[скріншот тут] [скріншот тут]
-Історія перевірок PDF експорт
-[скріншот тут] [скріншот тут]
+Головна сторінка
+EN [<img width="1676" height="681" alt="main_en" src="https://github.com/user-attachments/assets/98bedca0-75f0-4b16-b194-11881d70316b" />
+]
+UA [<img width="1636" height="737" alt="main_ua" src="https://github.com/user-attachments/assets/8025271e-9cc1-4138-98da-cde62e96e9cd" />
+]
+
+Сторінка результатів
+[<img width="1321" height="869" alt="result" src="https://github.com/user-attachments/assets/a0aeb1b0-291d-4845-9d9b-3ff127b02084" />
+]
+
+Історія перевірок
+[<img width="1759" height="869" alt="history" src="https://github.com/user-attachments/assets/1b880a91-6788-4a22-bd1e-d8419e985e34" />
+]
+
+PDF експорт
+[<img width="1899" height="869" alt="pdf" src="https://github.com/user-attachments/assets/644a6370-7d94-4a3b-bc5f-9ff873fa316d" />
+]
 
 📈 **Майбутні покращення**
 Реальний HTTP аналіз через CORS-проксі
