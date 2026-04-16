@@ -42,3 +42,31 @@
 
   <app-input-form></app-input-form>
 </div>
+
+<div class="container">
+  <div class="activity-section" *ngIf="activities.length">
+    <h3>🔥 Live Activity</h3>
+
+    <div class="activity-list">
+      <div *ngFor="let item of activities" class="activity-item">
+        <div class="activity-avatar">
+          <img [src]="item.avatar" [alt]="item.name" />
+        </div>
+
+        <div class="activity-info">
+          <div class="activity-user">
+            <strong>{{ item.name }}</strong>
+            <span class="company">({{ item.company }})</span>
+          </div>
+          <div class="activity-action">
+            analyzed <b>{{ item.url }}</b>
+          </div>
+        </div>
+
+        <div class="activity-score" [style.color]="getScoreColor(item.score)">
+          {{ item.score }}/100
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

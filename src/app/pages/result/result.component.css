@@ -247,3 +247,28 @@
     width: 100%;
   }
 }
+
+/* Chart section */
+.chart-section {
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+.chart-title {
+  margin-top: 0;
+  margin-bottom: 20px;
+  font-size: 18px;
+  text-align: left;
+}
+
+.chart-container {
+  max-width: 400px;
+  margin: 0 auto;
+  position: relative;
+}
+
+@media (max-width: 768px) {
+  .chart-container {
+    max-width: 300px;
+  }
+}

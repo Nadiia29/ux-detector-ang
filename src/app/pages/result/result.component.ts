@@ -5,6 +5,9 @@ import { RealAnalysisService, AnalysisResult } from '../../services/real-analysi
 import { HistoryService } from '../../services/history.service';
 import { LanguageService } from '../../services/language.service';
 import html2pdf from 'html2pdf.js';
+import { Chart, registerables } from 'chart.js';
+
+Chart.register(...registerables);
 
 @Component({
   selector: 'app-result',
@@ -18,6 +21,7 @@ export class ResultComponent implements OnInit {
   loading = true;
   error: string | null = null;
   chartData: number[] = [];
+  private chart: Chart | null = null;
 
   constructor(
     private route: ActivatedRoute,
@@ -50,12 +54,96 @@ export class ResultComponent implements OnInit {
         this.analysis.metrics.ux,
       ];
       this.historyService.saveAnalysis(this.analysis);
+
+      setTimeout(() => {
+        this.createRadarChart();
+      }, 100);
     } catch (err: any) {
       this.error = err.message || this.translate('error.general');
     } finally {
       this.loading = false;
       this.cdr.detectChanges();
     }
+  }
+
+  // ← ДОДАНО: метод для створення графіка
+  createRadarChart() {
+    if (!this.analysis) return;
+
+    const canvas = document.getElementById('metricsRadarChart') as HTMLCanvasElement;
+    if (!canvas) return;
+
+    if (this.chart) {
+      this.chart.destroy();
+    }
+
+    const metricsData = [
+      this.analysis.metrics.performance,
+      this.analysis.metrics.seo,
+      this.analysis.metrics.accessibility,
+      this.analysis.metrics.ux,
+    ];
+
+    this.chart = new Chart(canvas, {
+      type: 'radar',
+      data: {
+        labels: [
+          this.translate('metrics.performance'),
+          this.translate('metrics.seo'),
+          this.translate('metrics.accessibility'),
+          this.translate('metrics.ux'),
+        ],
+        datasets: [
+          {
+            label: this.translate('score.overall'),
+            data: metricsData,
+            backgroundColor: 'rgba(79, 70, 229, 0.2)',
+            borderColor: '#4f46e5',
+            borderWidth: 2,
+            pointBackgroundColor: '#4f46e5',
+            pointBorderColor: '#fff',
+            pointHoverBackgroundColor: '#fff',
+            pointHoverBorderColor: '#4f46e5',
+            pointRadius: 4,
+            pointHoverRadius: 6,
+          },
+        ],
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: true,
+        scales: {
+          r: {
+            beginAtZero: true,
+            max: 100,
+            ticks: {
+              stepSize: 20,
+              backdropColor: 'transparent',
+            },
+            grid: {
+              color: 'rgba(0, 0, 0, 0.1)',
+            },
+          },
+        },
+        plugins: {
+          legend: {
+            position: 'bottom',
+            labels: {
+              font: {
+                size: 12,
+              },
+            },
+          },
+          tooltip: {
+            callbacks: {
+              label: (context) => {
+                return `${context.label}: ${context.raw}%`;
+              },
+            },
+          },
+        },
+      },
+    });
   }
 
   getScoreColor(score: number): string {
@@ -71,6 +159,7 @@ export class ResultComponent implements OnInit {
     return this.translate('score.poor');
   }
 
+  // ← ДОДАНО: метод для отримання тексту проблеми
   getIssueMessage(issue: any): string {
     if (issue.params) {
       return this.langService.translate(issue.messageKey, issue.params);
@@ -78,6 +167,7 @@ export class ResultComponent implements OnInit {
     return this.langService.translate(issue.messageKey);
   }
 
+  // ← ДОДАНО: метод для отримання тексту рекомендації
   getRecommendationText(recKey: string): string {
     return this.langService.translate(recKey);
   }

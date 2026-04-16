@@ -244,5 +244,14 @@ export class LanguageService {
       uk: 'Я перевірила UX сайту',
       en: 'I checked the UX of',
     },
+
+    'chart.title': {
+      uk: 'Візуалізація метрик',
+      en: 'Metrics Visualization',
+    },
+    'score.overall': {
+      uk: 'Загальна оцінка',
+      en: 'Overall Score',
+    },
   };
 }

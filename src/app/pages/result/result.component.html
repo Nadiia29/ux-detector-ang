@@ -54,6 +54,13 @@
       </div>
     </div>
 
+    <div class="chart-section card">
+      <h3 class="chart-title">📊 {{ translate('chart.title') }}</h3>
+      <div class="chart-container">
+        <canvas id="metricsRadarChart"></canvas>
+      </div>
+    </div>
+
     <div class="issues-section card" *ngIf="analysis.issues.length">
       <h2>{{ translate('issues.title') }}</h2>
       <div class="issues-list">
